@@ -42,7 +42,7 @@ function confirmEmail(email){
     if(err){
       console.log(err)
     }
-    const url = `http://localhost:3000/confirm/${emailToken}`;
+    const url = `https://quickcards-flashcard-app.herokuapp.com/confirm/${emailToken}`;
     transport.sendMail({
       from: userEmail,
       to: email,
@@ -76,7 +76,7 @@ function resetEmail(email){
     if(err){
       console.log(err)
     }
-    const url = `http://localhost:3000/reset/${emailToken}`;
+    const url = `https://quickcards-flashcard-app.herokuapp.com/reset/${emailToken}`;
     transport.sendMail({
       from: userEmail,
       to: email,
