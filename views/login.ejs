@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title></title>
+    <script src="https://kit.fontawesome.com/fe5a2b3aeb.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/login">Quick Cards | </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" href="/register">Don't an account? Register</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="flex-box-1">
+    <div class="index-card-container">
+    <div class="index-card">
+    <div class="index-card-front">
+      <%if(message !== ''){%>
+        <h1><%=message%></h1>
+      <%} else{ %>
+      <h1 class="index-text">Login</h1>
+      <%}%>
+      <h5>flip to login</h5>
+      <i id="flip" class="fas fa-redo"></i></div>
+    <div class="index-card-back">
+      <h1 class="index-text"></h1>
+      <div class="index-form">
+        <form class="" action="/login" method="post">
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password">
+          <button type="submit" name="button">Login</button>
+        </form>
+        <p class="forgot-pw">Forgot your password? <a href="/update">Update Password</a></p>
+      </div><i id="flip-back" class="fas fa-redo"></i></div>
+    </div>
+    </div>
+    </div>
+<%-include("components/footer.ejs"); -%>

@@ -1,0 +1,698 @@
+a{
+  color: inherit;
+}
+
+a:hover{
+  color: #0077c0;
+  text-decoration: underline;
+}
+
+body{
+   margin: 0;
+   font-family:'Poiret One', 'Arial', sans-serif;
+   color: #fafafa;
+   background-color: #c7eeff;
+}
+
+button{
+    font-family:'Poiret One', 'Arial', sans-serif;
+    font-weight: bold;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+    background-color: inherit;
+    width: 80px;
+    height: 40px;
+}
+
+button:hover{
+  background-color:  #1d242b;
+  color: #fafafa;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    color: #1d242b;
+    margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}
+
+h5{
+  font-weight: bold;
+}
+
+header{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #0077c0;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.responsive-header{
+  width: 100%;
+  height: 205px;
+  padding-bottom: 5px;
+  background-color: #0077c0;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+header h1{
+    padding: 25px 10px;
+}
+
+input{
+    font-family:'Poiret One', 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+label{
+  left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+option{
+  font-weight: bold;
+}
+
+p{
+  font-weight: bold;
+}
+
+select{
+  margin-left: 10px;
+  font-size: 16px;
+  font-family:'Poiret One', 'Arial', sans-serif;
+  font-weight: bold;
+  background-color: inherit;
+}
+
+small{
+  display: block;
+  margin: 0 10px 15px;
+  font-weight: bold;
+}
+
+textarea{
+  font-family:'Poiret One', 'Arial', sans-serif;
+  font-weight: bold;
+  background-color: inherit;
+  resize: none;
+  margin-left: 10px;
+  width: 570px;
+  font-size: 20px;
+}
+
+::placeholder {
+    color: #1d242b;
+    opacity: 1;
+  }
+
+  :-ms-input-placeholder {
+    color: #1d242b;
+  }
+
+  ::-ms-input-placeholder {
+    color: #1d242b;
+  }
+
+  .row{
+    text-align: center;
+    margin:0;
+  }
+
+.navbar{
+  height: 100px;
+  color: #fafafa;
+}
+
+#navbarNavAltMarkup a:hover{
+  color:  #c7eeff;
+}
+
+.collapse{
+  color: #fafafa;
+}
+
+/* login / register / index card */
+
+.flex-container{
+    display: flex;
+
+}
+
+.flex-box-1{
+    height: 100%;
+    position: relative;
+    text-align: center;
+
+}
+
+.flex-box-1 input{
+    width: 570px;
+    margin-left:10px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    outline: none;
+    border: 1px solid #1d242b;
+    border-style: none none solid none;
+    color: #1d242b;
+}
+
+.flex-box-1 input::placeholder{
+    color: #1d242b;
+}
+
+.flex-box-1 input:-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+.flex-box-1 input::-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+.flex-box-1 button{
+  margin: 0 auto;
+  display: block;
+  }
+
+.index-card-container{
+    width: 600px;
+    height: 350px;
+    perspective: 1000px;
+    position: absolute;
+    margin-top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.index-card-container.flip .index-card{
+    transform: rotateX(180deg);
+}
+
+.fa-redo{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2%;
+    cursor: pointer;
+}
+
+.index-card{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.index-card h5{
+  position: absolute;
+  margin-top: 15%;
+  font-size: 16px;
+}
+
+.index-card-front, .index-card-back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1d242b;
+}
+
+.index-card-front{
+    background-color: #fafafa;
+    background-image: repeating-linear-gradient(transparent, transparent 20px, #c7eeff 1px, #d92027 21px);
+}
+
+.index-card-back{
+    background-color: #fafafa;
+    transform: rotateX(180deg);
+}
+
+.index-text{
+  position: absolute;
+}
+
+.forgot-pw{
+  margin: 3% 3% auto;
+  font-weight: bold;
+}
+
+.message{
+  font-size: 25px;
+  color: #d92027;
+}
+
+/* home index card */
+
+.new-set-text{
+  text-align: center;
+  color: black;
+  margin: 2% 0 1%;
+}
+
+.index-card-front-home{
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    color: #1d242b;
+}
+
+.index-card-front-home{
+    background-color: #faf9f9;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+    /* background-image: repeating-linear-gradient(transparent, transparent 20px, #c7eeff 1px, #d92027 21px); */
+}
+
+.index-card-front-home h2{
+  text-align: left;
+  margin-left: 10px;
+}
+
+.index-card-front-home input, textarea{
+  background-color: inherit;
+  display: block;
+}
+
+.index-text-home{
+  padding: 5px 0 0;
+}
+
+.set-title{
+  margin: 2% 0;
+}
+
+.new-set button{
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+
+
+/* my sets page */
+
+.sets-title{
+  text-align: center;
+  color:  #1d242b;
+  margin-top: 2%;
+}
+
+.set-box{
+  width: 50%;
+  margin: 5% auto 5%;
+  padding-bottom: 5%;
+  background-color: #fafafa  ;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  background-image: repeating-linear-gradient(transparent, transparent 20px, #c7eeff 1px, #d92027 21px);
+}
+
+
+.set-box h2{
+  margin-top: 10%;
+  color: #1d242b;
+  font-weight: bold;
+}
+
+
+.edit-delete-btn{
+  margin: 0 8%;
+  background-color: transparent;
+}
+
+.study{
+  margin: 8% 8%;
+}
+
+.test{
+  margin: 8% 8%;
+}
+
+.modal{
+  text-align: center;
+}
+
+.modal h5{
+  color: black;
+  margin-bottom: 5%;
+}
+
+.edit-delete button{
+  text-align: center;
+  margin: 0 auto;
+  background-color: inherit;
+}
+
+.edit-delete button:hover{
+  background-color: black;
+}
+
+/* card page */
+
+
+.card-box{
+  color: black;
+  text-align: center;
+  margin: 10% 0;
+  margin-left: 50%;
+  width: 600px;
+  height: 300px;
+  transform: translate(-50%, 0);
+  background-color: #fafafa  ;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  background-image: repeating-linear-gradient(transparent, transparent 20px, #c7eeff 1px, #d92027 21px);
+}
+
+
+.edit-buttons{
+  width: 20%;
+  margin: 5% 10% 0 ;
+}
+
+.edit-card input{
+  margin: auto;
+  background-color: inherit;
+  width: 570px;
+  margin: 20px 10px 20px 0;
+}
+
+.add-card{
+  margin-top: 5%;
+  text-align: center;
+  color: black;
+}
+
+.edit-card{
+  text-align: center;
+  color: black;
+}
+
+.add-card-button{
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 20px;
+}
+
+/* casual study page */
+
+.next-card{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.previous-card{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+
+
+/* testing page */
+
+.answer-form{
+  margin: 400px auto 2%;
+  width: 600px;
+}
+
+.answer{
+  width: 100%;
+  background-color: #0077c0;
+  color: #fafafa;
+  border-radius: 5px 5px 0 0;
+  border-style: none;
+  margin-left: 0;
+}
+
+.answer-form textarea::placeholder{
+  color: #fafafa;
+  padding-left: 5px;
+}
+
+.answer-btn{
+  display: inline;
+  text-align: center;
+  width: 100%;
+  background-color: #0077c0;
+  border-style: none;
+  color: #fafafa;
+  border-radius: 0 0 5px 5px;
+}
+
+.result h1{
+  display: block;
+  margin-bottom: 3%;
+}
+
+.correct{
+  color: #40a798;
+
+}
+.incorrect{
+  color: #ff1e56;
+}
+
+.user-answer{
+  width: 600px;
+  margin: 0 5px;
+  max-height: 100px;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+.right-answer{
+  width: 600px;
+  margin: 0 5px;
+  max-height: 100px;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+/* my info page */
+
+.user-info{
+  font-weight: bold;
+  margin: auto 2%;
+}
+
+.update{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 12%;
+  width: auto;
+}
+
+
+/* error page */
+
+.err{
+  margin: 0 15%;
+}
+
+/* confirm email page */
+
+.resend{
+  position:absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translate(-50%, 0);
+  width: 100px;
+}
+
+/* update password page*/
+.index-card-front form{
+  position: absolute;
+  bottom: 2%;
+}
+
+.reset-message{
+  margin: auto 2%;
+  font-size: 30px;
+}
+
+.update-pw input{
+  background: transparent;
+}
+
+/* box shadow for update and reset page */
+.shadow{
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+/* responsive */
+
+@media (max-width: 600px) {
+  .index-card-container{
+      width: 80%;
+      margin-top: 10%;
+  }
+
+  .flex-box-1 input{
+      width: 90%;
+  }
+
+  .index-card h5{
+    bottom: 50px;
+    font-size: 20px;
+  }
+
+  /* home/create set page */
+
+  .index-card-front-home input, textarea{
+    width: 90%;
+  }
+
+  .category{
+    margin: 3% 2%;
+  }
+
+  .set-title{
+    margin: 3% 2%;
+  }
+
+  /* cards page */
+  .card-box{
+    width: 90%;
+  }
+
+  .edit-card input{
+    width: 90%;
+    margin: auto;
+  }
+
+  .edit-card textarea{
+    margin: 5% auto;
+    width: 90%;
+    }
+
+    .edit-buttons{
+      width: auto;
+      margin: 5% 1% 0;
+    }
+
+    .edit-card{
+      padding-bottom: 5%;
+    }
+
+/* my sets page */
+
+    .set-box{
+      width: 90%;
+    }
+
+
+/* test page */
+
+    .answer-form{
+      margin: 450px auto 2%;
+      width: 80%;
+    }
+
+    .sets-title{
+      margin-top: 20px;
+    }
+
+    .user-answer{
+      width: 90%;
+      margin: inherit 25%;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .right-answer{
+      width: 90%;
+      margin: inherit 25%;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .result{
+      max-width: 300px;
+    }
+
+    .result h1{
+      margin-bottom: 3%;
+    }
+
+/* info page */
+    .index-text{
+      margin: 0 20%;
+      font-size: 25px;
+      font-weight: bold;
+    }
+}
+
+@media (max-width: 300px) {
+  .edit-delete-btn{
+    margin: 2%;
+    background-color: transparent;
+  }
+
+  .study{
+    margin: 2%;
+  }
+
+  .test{
+    margin: 2%;
+  }
+
+  .index-text{
+    margin: inherit 20%;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .user-answer{
+    width: 80%;
+    font-size: 16px;
+  }
+
+  .right-answer{
+    font-size: 16px;
+  }
+
+  .user-info{
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+///// */

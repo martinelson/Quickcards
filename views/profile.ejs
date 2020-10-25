@@ -1,0 +1,28 @@
+<%-include("components/header.ejs"); -%>
+
+
+<div class="flex-box-1">
+<div class="index-card-container">
+<div class="index-card">
+<div class="index-card-front">
+  <%if(message !== ''){%>
+    <h1><%=message%></h1>
+  <%} else{ %>
+    <h1 class="index-text">My Info</h1>
+    <h5 class="user-info">flip to view info</h5>
+  <%}%>
+  <i id="flip" class="fas fa-redo"></i></div>
+<div class="index-card-back">
+  <h1 class="index-text"></h1>
+  <div class="user-info">
+    <p>Email: <%=user%></p>
+    <p>Number of Sets: <%=setCount%></p>
+    <p>Number of Cards: <%=cardCount%></p>
+    <a href="/update"><button class="update" type="submit">Update Password</button></a>
+  </div><i id="flip-back" class="fas fa-redo"></i></div>
+</div>
+</div>
+</div>
+
+
+<%-include("components/footer.ejs"); -%>

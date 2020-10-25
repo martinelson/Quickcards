@@ -1,0 +1,28 @@
+<%-include("components/header.ejs"); -%>
+<%if(setLength === 0){%>
+  <h1 class="sets-title">No cards to study in this set</h1>
+<%} else {%>
+<h1 class="sets-title">Casual Study</h1>
+<div class="flex-box-1">
+<div class="index-card-container">
+<div class="index-card">
+<div class="index-card-front">
+  <h1 class="index-text"><%=card.front%></h1>
+  <%if(nextCard <= setLength-1){%>
+  <a href="/study/<%=nextCard%>/<%=card.setid%>"><button class="next-card" type="submit" name="nextButton">Next</button></a>
+  <%}%>
+  <%if(previous >= 0) {%>
+    <a href="/study/<%=previous%>/<%=card.setid%>"><button class="previous-card" type="submit" name="previousButton">Previous</button></a>
+    <%}%>
+<i id="flip" class="fas fa-redo"></i></div>
+<div class="index-card-back">
+  <h1 class="index-text"></h1>
+  <div class="index-form">
+  <h1><%=card.back%></h1>
+
+  </div><i id="flip-back" class="fas fa-redo"></i></div>
+</div>
+</div>
+</div>
+<%}%>
+<%-include("components/footer.ejs"); -%>

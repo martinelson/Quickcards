@@ -1,0 +1,64 @@
+<%-include("components/header.ejs"); -%>
+<h1 class="add-card">Add a Card</h1>
+<div class="card-box">
+  <form class="edit-card" action="/cards/<%=set%>" method="post">
+    <h2>New Card</h2>
+    <input type="text" name="frontSide" placeholder="Front Side" maxlength="44" required>
+    <textarea name="backSide" rows="3" cols="80" maxlength="300" placeholder="Back Side" required></textarea>
+    <button class="add-card-button" type="submit" name="addButton"value="<%=set%>">+</button>
+  </form>
+</div>
+
+<%if(cards ==="No set"){%>
+  <h1 class="edit-card">No cards yet</h1>
+  <br>
+<%} else{ %>
+<h1 class="edit-card">Edit Existing Cards</h1>
+<div id="carouselCards" class="carousel slide" data-interval="false">
+
+  <div class="carousel-inner">
+    <%let i = 0 %>
+    <% cards.forEach(function(card){ %>
+      <% if(i ===0) {%>
+    <div class="carousel-item active">
+      <div class="card-box">
+        <% i = i + 1%>
+        <form class="edit-card" action="/cards/<%=card.setid%>" method="post">
+          <h2>Card <%=i%>/<%=cards.length%></h2>
+          <input type="text" name="frontSide" value="<%=card.front%>" maxlength="44" required>
+          <textarea name="backSide" rows="3" cols="80" maxlength="300" placeholder="First Card Back" required><%=card.back%></textarea>
+          <button type="submit" class="edit-buttons" name="deleteButton" value="<%=card.idcards%>">Delete Card</button>
+          <button class="edit-buttons" type="submit" name="saveButton" value="<%=card.idcards%>">Save Edits</button>
+        </form>
+      </div>
+    </div>
+    <%} else{ %>
+      <div class="carousel-item">
+        <div class="card-box">
+          <% i = i + 1%>
+          <form class="edit-card" action="/cards/<%=card.setid%>" method="post">
+            <h2>Card <%=i%>/<%=cards.length%></h2>
+            <input type="text" name="frontSide" value="<%=card.front%>" maxlength="44" required>
+            <textarea name="backSide" rows="3" cols="80" maxlength="300" placeholder="First Card Back" required><%=card.back%></textarea>
+            <button type="submit" class="edit-buttons" name="deleteButton" value="<%=card.idcards%>">Delete Card</button>
+            <button class="edit-buttons" type="submit" name="saveButton" value="<%=card.idcards%>">Save Edits</button>
+          </form>
+        </div>
+      </div>
+      <%}%>
+
+    <%})%>
+  </div>
+
+  <a class="carousel-control-prev" href="#carouselCards" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselCards" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<%}%>
+
+<%-include("components/footer.ejs"); -%>

@@ -1,0 +1,20 @@
+<%-include("components/header.ejs"); -%>
+
+<div class="flex-box-1">
+<div class="index-card-container">
+<div class="index-card">
+<div class="index-card-front">
+  <%if(message!==''){%>
+    <h1 class="index-text"><%=message%></h1>
+    <form action="/resend" method="post">
+      <button class="resend" type="submit" name="button">Resend</button>
+    </form>
+  <%}else{%>
+    <h1 class="correct">Thank you - your email is confirmed.</h1>
+
+  <%}%>
+</div>
+</div>
+</div>
+</div>
+<%-include("components/footer.ejs"); -%>

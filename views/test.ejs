@@ -1,0 +1,40 @@
+<%-include("components/header.ejs"); -%>
+<%if(setLength === 0){%>
+  <h1 class="sets-title">No cards to test in this set</h1>
+<%} else {%>
+<h1 class="sets-title">Test Your Knowledge</h1>
+<div class="flex-box-1">
+<div class="index-card-container">
+<div class="index-card">
+<div class="index-card-front">
+  <%if(answer!==''){ %>
+    <div class="result">
+    <%if(answer === 'Correct'){%>
+      <h1 class="correct"><%=answer%></h1>
+    <%}else{%>
+      <h1 class="incorrect"><%=answer%></h1>
+      <%}%>
+    <h1 class="user-answer">Your Answer: <%=userAnswer%></h1>
+    <h1 class="right-answer">Right Answer: <%=correctAnswer%></h1>
+  </div>
+
+  <%} else{%>
+  <h1 class="index-text"><%=card.front%></h1>
+  <%}%>
+  <%if(nextCard <= setLength-1){%>
+  <a href="/test/<%=nextCard%>/<%=card.setid%>"><button class="next-card" type="submit" name="nextButton">Next</button></a>
+  <%}%>
+  <%if(previous >= 0) {%>
+    <a href="/test/<%=previous%>/<%=card.setid%>"><button class="previous-card" type="submit" name="previousButton">Previous</button></a>
+    <%}%>
+</div>
+</div>
+</div>
+</div>
+<form class="answer-form" action="/answer/<%=nextCard - 1%>/<%=card.setid%>" method="post">
+  <textarea class="answer" name="backSide" rows="3" cols="80" maxlength="300" placeholder="Your Answer" required></textarea>
+  <button class="answer-btn" type="submit" name="answerButton" value="<%=card.idcards%>">Submit</button>
+</form>
+<%}%>
+
+<%-include("components/footer.ejs"); -%>

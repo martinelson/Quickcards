@@ -1,0 +1,54 @@
+<%-include("components/header.ejs"); -%>
+<%if(sets === "No sets"){%>
+  <h1 class="sets-title">No Sets Yet - Make a new set</h1>
+<%} else{%>
+<h1 class="sets-title">My Sets</h1>
+<%let i = 0 %>
+<% sets.forEach(function(set){ %>
+
+
+  <% if(i % 2 !== 0) {%>
+    <div class="row justify-content-center">
+    <div class="col-lg-6 set-box">
+      <h2><%=set.title%></h2>
+      <a href="/study/0/<%=set.idsets%>"><button class="study" type="button" name="button" value="<%=set.idsets%>">Study</button></a>
+      <a href="/test/0/<%=set.idsets%>"><button class="test" type="button" name="button" value="<%=set.idsets%>">Test</button></a>
+      <br>
+      <button class="edit-delete-btn" type="button"  data-toggle="modal" data-target="#deleteModal<%=set.idsets%>" name="button" value="<%=set.idsets%>">Delete</button>
+      <a href="/cards/<%=set.idsets%>"><button class="edit-delete-btn" type="button" name="button" value="<%=set.idcards%>">Edit</button></a>
+    </div>
+  </div>
+  <%} else{ %>
+    <div class="row justify-content-center">
+
+    <div class="col-lg-6 set-box">
+      <h2><%=set.title%></h2>
+      <a href="/study/0/<%=set.idsets%>"><button class="study" type="button" name="button" value="<%=set.idsets%>">Study</button></a>
+      <a href="/test/0/<%=set.idsets%>"><button class="test" type="button" name="button" value="<%=set.idsets%>">Test</button></a>
+      <br>
+      <button class="edit-delete-btn" data-toggle="modal" data-target="#deleteModal<%=set.idsets%>" type="button" name="button" value="<%=set.idsets%>">Delete</button>
+      <a href="/cards/<%=set.idsets%>"><button class="edit-delete-btn" type="button" name="button" value="<%=set.idcards%>">Edit</button></a>
+    </div>
+
+  <%}%>
+  </div>
+  <div class="modal fade" id="deleteModal<%=set.idsets%>" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5>Are you sure you want to delete this entire set?</h5>
+          <form class="edit-delete" action="/deleteset" method="post">
+            <button type="submit" name="deletebutton" value="<%=set.idsets%>">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% i = i + 1%>
+
+<%})%>
+<%}%>
+
+
+
+<%-include("components/footer.ejs"); -%>

@@ -1,0 +1,38 @@
+<%-include("components/header.ejs"); -%>
+    <h1 class="new-set-text">Create</h1>
+
+    <div class="flex-box-1">
+    <div class="index-card-container">
+    <div class="index-card">
+    <div class="index-card-front-home">
+      <%if(message === ''){%>
+        <h1 class="index-text-home">New Set</h1>
+      <%} else{ %>
+      <h1 class="index-text-home"><%=message%></h1>
+      <%}%>
+      <form class="new-set" action="/mysets" method="post">
+        <label class="set-title" for="category">Set Category</label>
+        <select class="category" name="category" required>
+          <option value="">Select a category</option>
+          <option value="Art">Art</option>
+          <option value="Social Studies">Social Studies</option>
+          <option value="Language">Language</option>
+          <option value="Literature">Literature</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Technology</option>
+          <option value="Business">Business</option>
+          <option value="Other">Other</option>
+        </select>
+        <input  type="text" name="title" placeholder="Title" maxlength="44" autocomplete="off" required>
+        <input type="text" name="frontSide" placeholder="First Card Front" maxlength="44" required>
+        <textarea name="backSide" rows="3" cols="80" maxlength="300" placeholder="First Card Back" required></textarea>
+        <button type="submit" name="button">Create</button>
+      </form>
+    </div>
+    </div>
+    </div>
+
+
+    </div>
+<%-include("components/footer.ejs"); -%>
