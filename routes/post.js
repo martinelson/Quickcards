@@ -149,13 +149,17 @@ router.post('/mysets', isAuth, isConfirmed, inList, (req, res, next) => {
   db.query("INSERT INTO sets (category, title, user) VALUES (?,?,?)",
   [category, title, req.user],
   function(err, resp) {
-    if (err) throw err;
+    if (err){
+      throw err;
+    }
     if (resp) {
       //insert setid, front, back, and user into card table
       db.query("INSERT INTO cards (setid, front, back, user) VALUES (?,?,?,?)",
       [resp.insertId, frontSide, backSide, req.user],
       function(err, cardresp) {
-        if (err) throw err;
+        if (err){
+          throw err;
+        }
         //if no error, then redirect to mysets
         if(cardresp){
           return res.redirect('/mysets');
@@ -177,7 +181,9 @@ router.post('/cards/:setId', isAuth, isConfirmed, (req, res, next) => {
     db.query("UPDATE cards SET front = ?, back = ? WHERE idcards = ? AND user = ?",
     [xss(req.body.frontSide), xss(req.body.backSide), xss(req.body.saveButton), req.user],
     function(err, response) {
-      if (err) throw err;
+      if (err){
+        throw err;
+      }
       if (response) {
         //if no errors, redirect to the card page with updated card
         //if user changes

@@ -9,7 +9,7 @@ const host = process.env.DB_HOST;
 const password = process.env.DB_PW;
 const name = process.env.DB_NAME;
 // sets up the database connection to sql database
-const db = mysql.createConnection({
+const db = mysql.createPool({
   user: user,
   host: host,
   password: password,
@@ -24,7 +24,7 @@ const sessionStore = new MySQLStore({
 }, db);
 
 //general check to see if connection worked
-db.connect(err => {
+db.getConnection(err => {
   if (err) {
     console.log(err);
   }
