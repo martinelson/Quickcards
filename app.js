@@ -23,7 +23,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-
+app.set('trust proxy', 1);
 //Session middleware
 const sess = {
   name: 'sessionId',
@@ -33,14 +33,12 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expires: 60 * 60 * 1000 * 24
+    expires: 60 * 60 * 1000 * 24,
+    secure: true
   }
 }
 
-if (app.get('env') === 'production'){
-  app.set('trust proxy', 1)
-  sess.cookie.secure = true
-}
+
 app.use(session(sess));
 //Flash error message middleware
 app.use(flash());
