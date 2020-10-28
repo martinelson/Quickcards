@@ -38,7 +38,6 @@ const sess = {
   }
 }
 
-
 app.use(session(sess));
 //Flash error message middleware
 app.use(flash());
@@ -48,12 +47,6 @@ require("./config/passport.js");
 //initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
-//test middleware - Remove for production
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   next();
-// });
-
 
 //get routes
 app.use(getRoutes);
@@ -62,7 +55,7 @@ app.use(postRoutes);
 
 //Error handling
 app.use(function(req, res, next) {
-  const error = new Error("Not found");
+  const error = new Error();
   error.status = 404;
   next(error);
 });

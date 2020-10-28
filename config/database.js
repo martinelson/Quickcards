@@ -10,6 +10,7 @@ const password = process.env.DB_PW;
 const name = process.env.DB_NAME;
 // sets up the database connection to sql database
 const db = mysql.createPool({
+  connectionLimit: 10,
   user: user,
   host: host,
   password: password,
@@ -23,12 +24,13 @@ const sessionStore = new MySQLStore({
   endConnectionOnClose: false,
 }, db);
 
-//general check to see if connection worked
-db.getConnection(err => {
+//general check to see if connection works
+db.getConnection((err, con) => {
   if (err) {
-    console.log(err);
+    throw err;
   }
   console.log('mysql connected');
+  con.release();
 });
 
 

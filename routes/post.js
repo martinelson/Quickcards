@@ -101,16 +101,6 @@ router.post('/reset', async (req, res, next)=>{
     }
     //hashing pw, checking if pw is already in the system
     const hash = await bcrypt.hash(password, 10);
-    db.query("SELECT password FROM users WHERE user = ?",[user],function(pwSelectErr, pwSelectResp){
-      if(pwSelectErr){
-        throw pwSelectErr;
-      }
-      if(pwSelectResp[0].password === hash){
-        return res.status(400).render("../views/reset.ejs", {
-          message: "must be a different password you currently have in the system", user: user
-        });
-      }
-    });
     //updating pw
     db.query("UPDATE users SET password = ? WHERE user = ?", [hash, user], function(err, response){
       if(err){
@@ -285,46 +275,5 @@ router.post('/answer/:cardOrder/:setId', isAuth, isConfirmed, (req, res, next) =
   });
 });
 
-
-////////////UPDATING USER PASSWORD///////////////////////
-router.post('/update', isAuth, isConfirmed, async (req, res, next) => {
-  const email = xss(req.body.email);
-  const password = xss(req.body.password);
-  const cpassword = xss(req.body.cpassword);
-  //checking if passwords match
-  if (password !== cpassword) {
-    return res.status(400).render("../views/profile.ejs", {
-      user: req.user,
-      message: "passwords don't match"
-    });
-  } else {
-    //other form validation with joi
-    const {
-      error
-    } = joiSchema.validate(req.body);
-    if (error) {
-      return res.status(400).render("../views/profile.ejs", {
-        user: req.user,
-        message: error.details[0].message
-      });
-    } else {
-      //if all validation passes:
-      //hash password
-      const hash = await bcrypt.hash(password, 10);
-      //insert user into db
-      db.query("UPDATE users SET password = ? WHERE user = ?", [hash, req.user], function(err, response) {
-        if (err) {
-          throw err;
-        }
-        if (response) {
-          req.logout();
-          res.render('../views/login.ejs', {
-            message: "Update successful - login"
-          });
-        }
-      });
-    }
-  }
-});
 
 module.exports = router;

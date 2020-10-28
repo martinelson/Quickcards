@@ -34,16 +34,21 @@ const isConfirmed = (req, res, next) => {
 }
 
 const notConfirmed = (req, res, next) => {
-  db.query("SELECT confirmed FROM users WHERE user = ?", [req.user], function(err, response){
-    if(err){
-      throw err;
-    }
-    if(response[0].confirmed === 0){
-      next();
-    } else{
-      return res.redirect('/');
-    }
-  });
+  if(req.user){
+    db.query("SELECT confirmed FROM users WHERE user = ?", [req.user], function(err, response){
+      if(err){
+        throw err;
+      }
+      if(response[0].confirmed === 0){
+        next();
+      } else{
+        return res.redirect('/');
+      }
+    });
+  } else{
+    next();
+  }
+
 }
 
 const emailExists = (req, res, next) =>{

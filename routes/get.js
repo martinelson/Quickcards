@@ -4,8 +4,13 @@ require('dotenv').config({
 const tokenSecret = process.env.TOKEN_SECRET;
 const router = require("express").Router();
 const passport = require("passport");
-const dbConnection = require("../config/database.js");
-const db = dbConnection.db;
+const updateQuery = require("../config/getqueries.js").updateQuery;
+const updateEmailQuery = require("../config/getqueries.js").updateEmailQuery;
+const mySetsQuery = require("../config/getqueries.js").mySetsQuery;
+const setCheck = require("../config/getqueries.js").setCheck;
+const userCards = require("../config/getqueries.js").userCards;
+const studyQuery = require("../config/getqueries.js").studyQuery;
+const testQuery = require("../config/getqueries.js").testQuery;
 const auth = require("../auth/auth.js");
 const jwt = require("jsonwebtoken");
 const xss = require("xss");
@@ -50,22 +55,7 @@ router.get('/confirm/:token', notConfirmed, async (req, res, next) => {
   try {
     //verifying token user received
     const {user} = jwt.verify(req.params.token, tokenSecret);
-    db.query("UPDATE users SET confirmed = true WHERE user = ?",
-    [user],
-    function(err, response) {
-      if (err){
-        throw err;
-      }
-      //if user in db is updated, send to confirm success page
-      if (response.changedRows === 1){
-        return res.render('../views/confirm.ejs',{message:''});
-      } else{
-        //if not then send error page
-        const error = new Error("Not found");
-        error.status = 404;
-        next(error);
-      }
-    });
+    updateEmailQuery(res,"UPDATE users SET confirmed = true WHERE user = ?",[user], '../views/confirm.ejs', next);
   } catch(e){
     next(e);
   }
@@ -88,22 +78,7 @@ router.get('/reset/:token', async (req, res, next) => {
   try {
     //verifying token user received
     const {user} = jwt.verify(req.params.token, tokenSecret);
-    db.query("SELECT user FROM users WHERE user = ?",
-    [user],
-    function(err, response) {
-      if (err){
-        throw err;
-      }
-      //if user in db is updated, send to reset page
-      if (response.length > 0){
-        return res.render('../views/reset.ejs',{message:'', user: user});
-      } else{
-        //if not then send error page
-        const error = new Error("Not found");
-        error.status = 404;
-        next(error);
-      }
-    });
+    updateQuery(res,"SELECT user FROM users WHERE user = ?",[user],'../views/reset.ejs',next);
   } catch(e){
     next(e);
   }
@@ -136,60 +111,17 @@ router.get('/', isAuth, isConfirmed, (req, res) => {
 ////////MY SETS ROUTE///////////
 router.get('/mysets', isAuth, isConfirmed, (req, res, next) => {
   //grab sets that match logged in user
-  db.query("SELECT * FROM sets WHERE user = ?", [req.user], function(error, found) {
-    if (error) {
-      throw error
-    }
-    //if the user has sets, return sets
-    if (found.length > 0) {
-      return res.render("../views/mysets.ejs", {
-        sets: found
-      });
-      //else notify the user to make a set
-    } else {
-      return res.render("../views/mysets.ejs", {
-        sets: "No sets"
-      });
-    }
-  })
+  mySetsQuery(res, "SELECT * FROM sets WHERE user = ?", [req.user], "../views/mysets.ejs");
 });
 
 
 ///////////PROFILE ROUTE//////////////////
-router.get('/profile', isAuth, isConfirmed, (req, res, next) => {
-  let setCount = 0;
-  let cardCount = 0;
-  db.query("SELECT COUNT(title) from sets WHERE user = ?", [req.user], function(countSetErr, countSetResp){
-    if(countSetErr){
-      throw countSetErr;
-    }
-    setCount += countSetResp[0]['COUNT(title)'];
-  });
-
-  db.query("SELECT COUNT(front) from cards WHERE user = ?", [req.user], function(countCardsErr, countCardsResp){
-    if(countCardsErr){
-      throw countCardsErr;
-    }
-    cardCount += countCardsResp[0]['COUNT(front)'];
-  });
+router.get('/profile', isAuth, isConfirmed, async (req, res, next) => {
   //grab user that matches logged in user
-  db.query("SELECT user FROM users WHERE user = ?", [req.user], function(err, response) {
-    if (err) {
-      throw err;
-    }
-    //if no errors, and one is grabbed,
-    if (response.length > 0) {
-      return res.render("../views/profile.ejs", {
-        user: req.user,
-        message: '',
-        setCount: setCount,
-        cardCount: cardCount
-      });
-    } else {
-      res.status(404);
-      next();
-    }
-  })
+  res.render("../views/profile.ejs", {
+    user: req.user,
+    message: ''
+  });
 });
 
 
@@ -197,39 +129,9 @@ router.get('/profile', isAuth, isConfirmed, (req, res, next) => {
 router.get('/cards/:setId', isAuth, isConfirmed, (req, res, next) => {
   //setting set route id
   const route_id = xss(req.params.setId);
-  //checking to see if user created the set id
-  db.query("SELECT * FROM sets WHERE idsets = ? AND user = ?",
-  [route_id, req.user],
-  function(err, setResponse) {
-    if (err) {
-      throw err;
-    }
-    //if not redirect to mysets
-    if (setResponse.length === 0) {
-      console.log("no sets")
-      return res.redirect("../mysets");
-    }
-  });
+  setCheck(res, "SELECT * FROM sets WHERE idsets = ? AND user = ?", [route_id, req.user],"../mysets")
   //if user has access to set, find user cards under set
-  db.query("SELECT * FROM cards WHERE setid = ? AND user = ?",
-  [route_id, req.user],
-  function(error, response) {
-    if(error){
-      throw error;
-    }
-    //if no cards yet in the set, render cards with no cards yet to display
-    if (response.length === 0) {
-      return res.render("cards", {
-        cards: "No set",
-        set: route_id
-      })
-    }
-    //if there are cards, render cards already created
-    return res.render("cards", {
-      cards: response,
-      set: route_id
-    });
-  })
+  userCards(res, "SELECT * FROM cards WHERE setid = ? AND user = ?", [route_id, req.user], "cards")
 });
 
 
@@ -241,24 +143,12 @@ router.get('/study/:cardId/:setId', isAuth, isConfirmed, (req, res, next) => {
   const nextCard = parseInt(xss(card_id)) + 1;
   const previous = parseInt(xss(card_id)) - 1;
   //grabbing all cards with matching set id and user
-  db.query("SELECT * FROM cards WHERE setid = ? AND user = ?", [set_id, req.user], function(err, response) {
-    if (err) {
-      throw err;
-    }
-    // if user has created the cards, return the test page
-    console.log(response)
-    if(response.length > 0){
-      const setLength = response.length;
-      return res.render("../views/study.ejs", {
-        card: response[card_id],
-        nextCard: nextCard,
-        previous: previous,
-        setLength: setLength
-      });
-    } else{
-      next();
-    }
-  });
+  studyQuery(res, "SELECT * FROM cards WHERE setid = ? AND user = ?",
+  [set_id, req.user],
+  "../views/study.ejs",
+  card_id,
+  nextCard,
+  previous);
 });
 
 
@@ -269,32 +159,18 @@ router.get('/test/:cardId/:setId', isAuth, isConfirmed, (req, res, next) => {
   const card_id = xss(req.params.cardId);
   const nextCard = parseInt(xss(card_id)) + 1;
   const previous = parseInt(xss(card_id)) - 1;
-  const answer = '';
+  const tempAnswer = '';
   const userAnswer = '';
   const correctAnswer = '';
   //grabbing all cards with matching set id and user
-  db.query("SELECT * FROM cards WHERE setid = ? AND user = ?",
+  testQuery(res, "SELECT * FROM cards WHERE setid = ? AND user = ?",
   [set_id, req.user],
-  function(err, response) {
-    if (err) {
-      throw err;
-    }
-    // if user has created the cards, return the test page
-    if(response.length > 0){
-      const setLength = response.length;
-      return res.render("../views/test.ejs", {
-        card: response[card_id],
-        nextCard: nextCard,
-        previous: previous,
-        setLength: setLength,
-        answer: answer,
-        userAnswer: userAnswer,
-        correctAnswer: correctAnswer
-      });
-    } else{
-      next();
-    }
-  });
+  "../views/test.ejs",
+  card_id,
+  nextCard,
+  previous,
+  tempAnswer);
+
 });
 
 ///////////LOGOUT ROUTE/////////////////
