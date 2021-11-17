@@ -1,7 +1,7 @@
 # Quickcards
 
 ## Purpose
-This project allows users to create their own flashcards to study a wide variety of topics.
+This project allows users to create their own flashcards to study a wide variety of topics. The user can add new sets, additional cards for each set, and test their knowlege with each set. The user has full capability to create, read, update, and delete each set.
 
 ---
 
